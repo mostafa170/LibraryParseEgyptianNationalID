@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="national_id_less_then_14">The national ID number is less than 14 numbers</string>
+    <string name="national_id_not_vaild">National ID not vaild</string>
+    <string name="female">Female</string>
+    <string name="male">Male</string>
+    <string name="birth_century_not_vaild">Birth century not vaild</string>
+    <string name="month_not_vaild">Birth month not vaild</string>
+    <string name="gender_not_vaild">Gender not vaild</string>
+    <string name="birthGovernorate_not_vaild">Birth governorate not vaild</string>
+    <string name="year_birth_not_vaild">Year Birth not vaild</string>
+    <string name="birth_month_not_vaild">Birth month not vaild</string>
+</resources>

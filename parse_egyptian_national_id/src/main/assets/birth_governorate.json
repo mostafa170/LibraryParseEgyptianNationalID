@@ -1,0 +1,86 @@
+[
+{ "id":"01",
+"birth_governorate":"القاهرة"
+},
+{ "id":"02",
+"birth_governorate":"الإسكندرية"
+},
+{ "id":"03",
+"birth_governorate":"بورسعيد"
+},
+{ "id":"04",
+"birth_governorate":"السويس"
+},
+{ "id":"11",
+"birth_governorate":"دمياط"
+},
+{ "id":"12",
+"birth_governorate":"الدقهلية"
+},
+{ "id":"13",
+"birth_governorate":"الشرقية"
+},
+{ "id":"14",
+"birth_governorate":"القليوبية"
+},
+{ "id":"15",
+"birth_governorate":"كفر الشيخ"
+},
+{ "id":"16",
+"birth_governorate":"الغربية"
+},
+{ "id":"17",
+"birth_governorate":"المنوفية"
+},
+{ "id":"18",
+"birth_governorate":"البحيرة"
+},
+{ "id":"19",
+"birth_governorate":"الإسماعيلية"
+},
+{ "id":"21",
+"birth_governorate":"الجيزة"
+},
+{ "id":"22",
+"birth_governorate":"بني سويف"
+},
+{ "id":"23",
+"birth_governorate":"الفيوم"
+},
+{ "id":"24",
+"birth_governorate":"المنيا"
+},
+{ "id":"25",
+"birth_governorate":"أسيوط"
+},
+{ "id":"26",
+"birth_governorate":"سوهاج"
+},
+{ "id":"27",
+"birth_governorate":"قنا"
+},
+{ "id":"28",
+"birth_governorate":"أسوان"
+},
+{ "id":"29",
+"birth_governorate":"الأقصر"
+},
+{ "id":"31",
+"birth_governorate":"البحر الأحمر"
+},
+{ "id":"32",
+"birth_governorate":"الوادى الجديد"
+},
+{ "id":"33",
+"birth_governorate":"مطروح"
+},
+{ "id":"34",
+"birth_governorate":"شمال سيناء"
+},
+{ "id":"35",
+"birth_governorate":"جنوب سيناء"
+},
+{ "id":"88",
+"birth_governorate":"خارج الجمهورية"
+}
+]

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/national_id"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:hint="@string/national_id"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
+            app:counterEnabled="true"
+            app:counterMaxLength="14"
+            app:endIconMode="clear_text"
+            app:helperText="@string/required"
+            app:helperTextTextColor="@color/black"
+            app:layout_constraintTop_toTopOf="parent"
+            app:prefixTextColor="@color/black"
+            app:startIconDrawable="@drawable/baseline_branding_watermark_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/national_id_ed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:textColor="@color/black" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/parseBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:background="@color/black"
+            android:padding="8dp"
+            android:text="@string/parse"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/national_id"
+            app:layout_constraintStart_toStartOf="@+id/national_id"
+            app:layout_constraintTop_toBottomOf="@+id/national_id" />
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView_parse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="20dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="8dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/parseBtn">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/tv_birthCentury_label"
+                    style="@style/boldTxpurple"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="@string/birthCentury"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_birthCentury"
+                    style="@style/boldTxpurple"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5dp"
+                    app:layout_constraintStart_toEndOf="@+id/tv_birthCentury_label"
+                    app:layout_constraintTop_toTopOf="@+id/tv_birthCentury_label"
+                    tools:text="19" />
+
+                <TextView
+                    android:id="@+id/tv_birthGovernorate_label"
+                    style="@style/boldTxpurple"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/birthGovernorate"
+                    app:layout_constraintStart_toStartOf="@+id/tv_birthCentury_label"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_birthCentury_label" />
+
+                <TextView
+                    android:id="@+id/tv_birthGovernorate"
+                    style="@style/boldTxpurple"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5dp"
+                    app:layout_constraintStart_toEndOf="@+id/tv_birthGovernorate_label"
+                    app:layout_constraintTop_toTopOf="@+id/tv_birthGovernorate_label"
+                    tools:text="Giza" />
+
+
+                <TextView
+                    android:id="@+id/tv_birth_date"
+                    style="@style/boldTxpurple"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawablePadding="5dp"
+                    app:drawableStartCompat="@drawable/baseline_calendar_month_24"
+                    app:layout_constraintStart_toStartOf="@+id/tv_birthGovernorate_label"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_birthGovernorate_label"
+                    tools:text="22-2-2022 13:13:00" />
+
+                <TextView
+                    android:id="@+id/tv_sequenceInComputer_label"
+                    style="@style/boldTxpurple"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/sequenceInComputer"
+                    app:layout_constraintStart_toStartOf="@+id/tv_birth_date"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_birth_date" />
+
+                <TextView
+                    android:id="@+id/tv_sequenceInComputer"
+                    style="@style/boldTxpurple"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_sequenceInComputer_label"
+                    app:layout_constraintTop_toTopOf="@+id/tv_sequenceInComputer_label"
+                    tools:text="341324132" />
+
+                <TextView
+                    android:id="@+id/tv_gender_label"
+                    style="@style/boldTxpurple"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:text="@string/gender"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tv_sequenceInComputer_label"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_sequenceInComputer_label" />
+
+                <TextView
+                    android:id="@+id/tv_gender"
+                    style="@style/boldTxpurple"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5dp"
+                    android:gravity="center"
+                    app:layout_constraintStart_toEndOf="@+id/tv_gender_label"
+                    app:layout_constraintTop_toTopOf="@+id/tv_gender_label"
+                    tools:text="Failed" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="required">مطلوب</string>
+    <string name="national_id">الرقم القومي</string>
+    <string name="parse">تحليل</string>
+    <string name="pleaseEnterRequiredField">من فضلك أدخل الحقل المطلوب</string>
+    <string name="birthCentury">قرن الولادة</string>
+    <string name="birthGovernorate">محل الولادة</string>
+    <string name="sequenceInComputer">تسلسل في الكمبيوتر او الدفتر</string>
+    <string name="gender">النوع</string>
+    <string name="The19Century">القرن 19</string>
+    <string name="The20Century">القرن العشرين</string>
+    <string name="The21Century">القرن الحادي والعشرين</string>
+</resources>

@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Parse Egyptian National ID</string>
+    <string name="required">Required</string>
+    <string name="national_id">National ID</string>
+    <string name="parse">Parse</string>
+    <string name="pleaseEnterRequiredField">Please enter the required field</string>
+    <string name="birthCentury">Birth Century</string>
+    <string name="birthGovernorate">Birth Governorate</string>
+    <string name="sequenceInComputer">Sequence In Computer</string>
+    <string name="gender">Gender</string>
+    <string name="The19Century">The 19 Century</string>
+    <string name="The20Century">The 20 Century</string>
+    <string name="The21Century">The 21 Century</string>
+</resources>

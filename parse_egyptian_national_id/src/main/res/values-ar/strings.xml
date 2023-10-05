@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="national_id_less_then_14">الرقم القومي اقل من 14 رقم</string>
+    <string name="national_id_not_vaild">رقم القومي غير صحيح</string>
+    <string name="female">انثي</string>
+    <string name="male">ذكر</string>
+    <string name="birth_century_not_vaild">القرن الميلادي غير صحيح</string>
+    <string name="month_not_vaild">الشهر غير صحيح</string>
+    <string name="gender_not_vaild">النوع غير صحيح</string>
+    <string name="birthGovernorate_not_vaild">محل الولادة غير صحيح</string>
+    <string name="year_birth_not_vaild">سنة الولادة غير صحيح</string>
+    <string name="birth_month_not_vaild">شهر الولادة غير صحيح</string>
+</resources>
