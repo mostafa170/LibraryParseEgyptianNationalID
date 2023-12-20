@@ -63,12 +63,30 @@
             android:layout_marginVertical="20dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="8dp"
-            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/parseBtn">
-
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout_parse_error"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:padding="5dp">
+
+            <TextView
+                android:id="@+id/tv_errors_label"
+                style="@style/boldTxpurple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                tools:text="@string/birthCentury"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout_parse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:padding="5dp">
 
                 <TextView

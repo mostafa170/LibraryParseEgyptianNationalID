@@ -3,7 +3,6 @@ package com.parse_egyptian_national_id
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.parse.egyptian_national_id.engine.NationalIDEngine
@@ -28,37 +27,43 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun parseNationalId(nationalId: String) {
-        val nationalIdEngine = NationalIDEngine()
-        if (nationalIdEngine.process(this, nationalId).error != null) {
-            Toast.makeText(
-                this,
-                nationalIdEngine.process(this, nationalId).error,
-                Toast.LENGTH_SHORT
-            ).show()
-        } else {
-            binding.cardViewParse.visibility = View.VISIBLE
-            if (nationalIdEngine.process(this, nationalId).birthCentury == "18"){
-                binding.tvBirthCentury.text = getString(R.string.The19Century)
-            }else if (nationalIdEngine.process(this, nationalId).birthCentury == "19"){
-                binding.tvBirthCentury.text = getString(R.string.The20Century)
-            }else if (nationalIdEngine.process(this, nationalId).birthCentury == "19"){
-                binding.tvBirthCentury.text = getString(R.string.The21Century)
-            }else {
-                binding.tvBirthCentury.text = nationalIdEngine.process(this, nationalId).birthCentury
+        val nationalIdEngine = NationalIDEngine(this)
+        val processedData = nationalIdEngine.process(nationalId)
+        when {
+            processedData.error.isNotEmpty() -> {
+                binding.constraintLayoutParse.visibility = View.GONE
+                binding.constraintLayoutParseError.visibility = View.VISIBLE
+                val errorMessage = processedData.error.joinToString("\n")
+                binding.tvErrorsLabel.text = errorMessage
             }
-            binding.tvSequenceInComputer.text =
-                nationalIdEngine.process(this, nationalId).sequenceInComputer
-            binding.tvBirthDate.text = nationalIdEngine.process(
-                this,
-                nationalId
-            ).birthYear + " / " + nationalIdEngine.process(
-                this,
-                nationalId
-            ).monthOfBirth + " / " + nationalIdEngine.process(this, nationalId).dayOfBirth
-            binding.tvGender.text =
-                nationalIdEngine.process(this, nationalId).gender
-            binding.tvBirthGovernorate.text =
-                nationalIdEngine.process(this, nationalId).birthGovernorate
+            else -> {
+                binding.constraintLayoutParse.visibility = View.VISIBLE
+                binding.constraintLayoutParseError.visibility = View.GONE
+
+                when (processedData.birthCentury) {
+                    "18" -> {
+                        binding.tvBirthCentury.text = getString(R.string.The19Century)
+                    }
+
+                    "19" -> {
+                        binding.tvBirthCentury.text = getString(R.string.The20Century)
+                    }
+
+                    "20" -> {
+                        binding.tvBirthCentury.text = getString(R.string.The21Century)
+                    }
+
+                    else -> {
+                        binding.tvBirthCentury.text = processedData.birthCentury
+                    }
+                }
+
+                binding.tvSequenceInComputer.text = processedData.sequenceInComputer
+                binding.tvBirthDate.text =
+                    "${processedData.birthYear} / ${processedData.monthOfBirth} / ${processedData.dayOfBirth}"
+                binding.tvGender.text = processedData.gender
+                binding.tvBirthGovernorate.text = processedData.birthGovernorate
+            }
         }
 
     }

@@ -9,50 +9,97 @@ import com.parse.egyptian_national_id.model.YearOfBirth
 import java.io.BufferedReader
 import java.io.InputStreamReader
 
-
-class NationalIDEngine {
+class NationalIDEngine(private val context: Context) {
     private val nationalIdData = NationalIDData()
-    private var context: Context? = null
 
-    fun process(context: Context, nationalID: String): NationalIDData {
-        this.context = context
-        return if (!isNationalIDOfLength(nationalID)) {
-            nationalIdData.error = context.getString(R.string.national_id_less_then_14)
-            nationalIdData
-        } else {
-            nationalIdData.dayOfBirth = getDayBirth(context,nationalID)
-            nationalIdData.gender = getGender(context, nationalID)
-            nationalIdData.birthCentury = getBirthCentury(context, nationalID)
-            nationalIdData.birthGovernorate = getBirthGovernorate(context, nationalID)
-            nationalIdData.sequenceInComputer = getSequenceInComputer(nationalID)
-            nationalIdData.birthYear = getBirthYear(context, nationalID)
-            nationalIdData.monthOfBirth = getBirthMonth(context, nationalID)
-            nationalIdData
-        }
-    }
-
-    private fun getSequenceInComputer(nationalID: String): String {
-        return nationalID.substring(9, 12)
-    }
-
-    private fun getGender(context: Context, nationalID: String): String {
-        val gender: Int = nationalID[12].toString().toInt()
+    fun process(nationalID: String): NationalIDData {
         return when {
-            gender in 0..8 && gender % 2 == 0 -> {
-                context.getString(R.string.female)
-            }
-
-            gender in 1..9 && gender % 2 !=0 -> {
-                context.getString(R.string.male)
+            isNationalIDOfLength(nationalID) -> {
+                nationalIdData.birthCentury = getBirthCentury(nationalID)
+                nationalIdData.birthYear = getBirthYear(nationalID)
+                nationalIdData.monthOfBirth = getBirthMonth(nationalID)
+                nationalIdData.dayOfBirth = getDayBirth(nationalID)
+                nationalIdData.birthGovernorate = getBirthGovernorate(nationalID)
+                nationalIdData.sequenceInComputer = getSequenceInComputer(nationalID)
+                nationalIdData.gender = getGender(nationalID)
+                nationalIdData
             }
 
             else -> {
-                context.getString(R.string.gender_not_vaild)
+                nationalIdData
             }
         }
     }
 
-    private fun getDayBirth(context: Context, nationalID: String): String {
+    private fun isNationalIDOfLength(nationalID: String): Boolean {
+        return when (nationalID.length) {
+            14 -> {
+                true
+            }
+
+            else -> {
+                nationalIdData.error.add(context.getString(R.string.national_id_less_then_14))
+                false
+            }
+        }
+    }
+
+    private fun getBirthCentury(nationalID: String): String {
+        return when {
+            nationalID[0] == YearOfBirth.THE19CENTURY.value -> {
+                "18"
+            }
+
+            nationalID[0] == YearOfBirth.THE20CENTURY.value -> {
+                "19"
+            }
+
+            nationalID[0] == YearOfBirth.THE21CENTURY.value -> {
+                "20"
+            }
+
+            else -> {
+                nationalIdData.error.add(context.getString(R.string.birth_century_not_vaild))
+                context.getString(R.string.birth_century_not_vaild)
+            }
+        }
+    }
+
+    private fun getBirthYear(nationalID: String): String {
+        val year: String = nationalIdData.birthCentury + nationalID[1] + nationalID[2]
+        var BirthDate = 0
+        if (nationalIdData.birthCentury == context.getString(R.string.birth_century_not_vaild)) {
+            return context.getString(R.string.year_birth_not_vaild)
+        } else {
+            BirthDate = year.toInt()
+        }
+        return when (BirthDate) {
+            in 1800..2024 -> {
+                BirthDate.toString()
+            }
+
+            else -> {
+                nationalIdData.error.add(context.getString(R.string.year_birth_not_vaild))
+                return context.getString(R.string.year_birth_not_vaild)
+            }
+        }
+    }
+
+    private fun getBirthMonth(nationalID: String): String {
+        val month: String = "" + nationalID[3] + nationalID[4]
+        return when (month.toInt()) {
+            in 1..12 -> {
+                month
+            }
+
+            else -> {
+                nationalIdData.error.add(context.getString(R.string.birth_month_not_vaild))
+                return context.getString(R.string.birth_month_not_vaild)
+            }
+        }
+    }
+
+    private fun getDayBirth(nationalID: String): String {
         val day: String = ""+nationalID[5]+nationalID[6]
         val dayBirth: Int = day.toInt()
         when (nationalIdData.monthOfBirth) {
@@ -78,11 +125,12 @@ class NationalIDEngine {
                 }
             }
         }
+        nationalIdData.error.add(context.getString(R.string.month_not_vaild))
         return context.getString(R.string.month_not_vaild)
     }
 
-    private fun getBirthGovernorate(context: Context, nationalID: String): String? {
-        val birthGovernorate: String = ""+nationalID[7]+nationalID[8]
+    private fun getBirthGovernorate(nationalID: String): String? {
+        val birthGovernorate: String = "" + nationalID[7] + nationalID[8]
         val assetManager = context.assets
         val inputStream = assetManager.open("birth_governorate.json")
         val inputStreamReader = InputStreamReader(inputStream)
@@ -100,61 +148,28 @@ class NationalIDEngine {
                 return governorate.birthGovernorate
             }
         }
+        nationalIdData.error.add(context.getString(R.string.birthGovernorate_not_vaild))
         return context.getString(R.string.birthGovernorate_not_vaild)
     }
 
-    private fun getBirthMonth(context: Context, nationalID: String): String {
-        val month: String = ""+nationalID[3]+nationalID[4]
-        return when (month.toInt()) {
-            in 1..12 -> {
-                month
-            }
-
-            else -> {
-                return context.getString(R.string.birth_month_not_vaild)
-            }
-        }
+    private fun getSequenceInComputer(nationalID: String): String {
+        return nationalID.substring(9, 12)
     }
 
-    private fun getBirthYear(context: Context, nationalID: String): String {
-        val year: String = nationalIdData.birthCentury +nationalID[1]+nationalID[2]
-        var BirthDate = 0
-        if (nationalIdData.birthCentury == context.getString(R.string.birth_century_not_vaild)){
-            return context.getString(R.string.year_birth_not_vaild)
-        }else {
-            BirthDate = year.toInt()
-        }
-        return when (BirthDate) {
-            in 1800..2024 -> {
-                BirthDate.toString()
-            }
-
-            else -> {
-                return context.getString(R.string.year_birth_not_vaild)
-            }
-        }
-    }
-
-    private fun isNationalIDOfLength(nationalID: String): Boolean {
-        return nationalID.length == 14
-    }
-
-    private fun getBirthCentury(context: Context, nationalID: String): String {
+    private fun getGender(nationalID: String): String {
+        val gender: Int = nationalID[12].toString().toInt()
         return when {
-            nationalID[0] == YearOfBirth.THE19CENTURY.value -> {
-                "18"
+            gender in 0..8 && gender % 2 == 0 -> {
+                context.getString(R.string.female)
             }
 
-            nationalID[0] == YearOfBirth.THE20CENTURY.value -> {
-                "19"
-            }
-
-            nationalID[0] == YearOfBirth.THE21CENTURY.value -> {
-                "20"
+            gender in 1..9 && gender % 2 != 0 -> {
+                context.getString(R.string.male)
             }
 
             else -> {
-                context.getString(R.string.birth_century_not_vaild)
+                nationalIdData.error.add(context.getString(R.string.gender_not_vaild))
+                context.getString(R.string.gender_not_vaild)
             }
         }
     }
