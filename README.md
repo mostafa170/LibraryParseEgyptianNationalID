@@ -36,7 +36,7 @@ Library support English and Arabic languages
 - ![Alt Text](https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExemdkMGh6eDBoeXRmeGQ1YnlhNWNiMDlxdHJpOWJtbDE0enNtMmFqbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/6PB36p8m0KPmGOP7MH/giphy.gif) ![Alt Text](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZnZxcjVxdm0zeG92cTgwNTRhOWN6OXNqaHExOXAyaTVoajVhenkzNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/2IEtugOhX17BQDhUFT/giphy.gif) ![Alt Text](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNnJ5M2FtYjExZm55NzV5dWRoZHY3MHI1YTA2dHJrdW52YmRlaG9lcCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/6LZpupCVSaX2oCQZOk/giphy.gif)
 
  # Usage :
- - First download library from : https://drive.google.com/file/d/16V8GYfohFTEUDNHnCQIrJ-9INGwDyPGw/view
+ - First download library from : https://drive.google.com/file/d/1C_2wMGRL2_d_tZQ2dQV4OOwfnzkpJa4Q/view?usp=sharing
  - add library in libs (project android studio) : https://postimg.cc/bDyKr7pN
  - add in gradle kotlin :
    ```kotlin
