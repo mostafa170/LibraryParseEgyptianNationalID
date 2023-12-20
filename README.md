@@ -13,6 +13,7 @@ Library to parse Egyptian National id automatic from A to Z
 Library support English and Arabic languages 
 
 # Validations and checks
+- return parse error in error list
 - birthCentury (Vaild or not)
 - birthYear (Vaild from 1800 to 2024 or not "return string error")
 - monthOfBirth (Vaild from 1 to 12 or not "return string error")
@@ -50,45 +51,56 @@ Library support English and Arabic languages
 
  - to parse national and using in project sample code kotlin:
    ```kotlin
-    private fun parseNationalId(nationalId: String) {
-        val nationalIdEngine = NationalIDEngine()
-        if (nationalIdEngine.process(this, nationalId).error != null) {
-            Toast.makeText(
-                this,
-                nationalIdEngine.process(this, nationalId).error,
-                Toast.LENGTH_SHORT
-            ).show()
-        } else {
-            binding.cardViewParse.visibility = View.VISIBLE
-            if (nationalIdEngine.process(this, nationalId).birthCentury == "18"){
-                binding.tvBirthCentury.text = getString(R.string.The19Century)
-            }else if (nationalIdEngine.process(this, nationalId).birthCentury == "19"){
-                binding.tvBirthCentury.text = getString(R.string.The20Century)
-            }else if (nationalIdEngine.process(this, nationalId).birthCentury == "19"){
-                binding.tvBirthCentury.text = getString(R.string.The21Century)
-            }else {
-                binding.tvBirthCentury.text = nationalIdEngine.process(this, nationalId).birthCentury
+   private fun parseNationalId(nationalId: String) {
+        val nationalIdEngine = NationalIDEngine(this)
+        val processedData = nationalIdEngine.process(nationalId)
+        when {
+            processedData.error.isNotEmpty() -> {
+                binding.constraintLayoutParse.visibility = View.GONE
+                binding.constraintLayoutParseError.visibility = View.VISIBLE
+                val errorMessage = processedData.error.joinToString("\n")
+                binding.tvErrorsLabel.text = errorMessage
             }
-            binding.tvSequenceInComputer.text =
-                nationalIdEngine.process(this, nationalId).sequenceInComputer
-            binding.tvBirthDate.text = nationalIdEngine.process(
-                this,
-                nationalId
-            ).birthYear + " / " + nationalIdEngine.process(
-                this,
-                nationalId
-            ).monthOfBirth + " / " + nationalIdEngine.process(this, nationalId).dayOfBirth
-            binding.tvGender.text =
-                nationalIdEngine.process(this, nationalId).gender
-            binding.tvBirthGovernorate.text =
-                nationalIdEngine.process(this, nationalId).birthGovernorate
+            else -> {
+                binding.constraintLayoutParse.visibility = View.VISIBLE
+                binding.constraintLayoutParseError.visibility = View.GONE
+
+                when (processedData.birthCentury) {
+                    "18" -> {
+                        binding.tvBirthCentury.text = getString(R.string.The19Century)
+                    }
+
+                    "19" -> {
+                        binding.tvBirthCentury.text = getString(R.string.The20Century)
+                    }
+
+                    "20" -> {
+                        binding.tvBirthCentury.text = getString(R.string.The21Century)
+                    }
+
+                    else -> {
+                        binding.tvBirthCentury.text = processedData.birthCentury
+                    }
+                }
+
+                binding.tvSequenceInComputer.text = processedData.sequenceInComputer
+                binding.tvBirthDate.text =
+                    "${processedData.birthYear} / ${processedData.monthOfBirth} / ${processedData.dayOfBirth}"
+                binding.tvGender.text = processedData.gender
+                binding.tvBirthGovernorate.text = processedData.birthGovernorate
+            }
         }
 
     }
-
+   
   - and sample xml :
 ```xml
  
+     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/national_id"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -140,12 +152,30 @@ Library support English and Arabic languages
             android:layout_marginVertical="20dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="8dp"
-            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/parseBtn">
-
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout_parse_error"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:padding="5dp">
+
+            <TextView
+                android:id="@+id/tv_errors_label"
+                style="@style/boldTxpurple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                tools:text="@string/birthCentury"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout_parse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:padding="5dp">
 
                 <TextView
@@ -246,4 +276,5 @@ Library support English and Arabic languages
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
     
